@@ -1,14 +1,13 @@
 package io.github.jumperonjava.kpz_atm_mod.client.ui.state;
 
+import io.github.jumperonjava.kpz_atm_mod.client.RequestQueue;
 import io.github.jumperonjava.kpz_atm_mod.client.ui.AtmScreen;
 import io.github.jumperonjava.kpz_atm_mod.client.ui.elements.Button;
-import io.github.jumperonjava.kpz_atm_mod.client.ui.elements.Component;
 import io.github.jumperonjava.kpz_atm_mod.client.ui.elements.TextInput;
+import io.github.jumperonjava.kpz_atm_mod.endpoints.Status;
 import net.minecraft.text.Text;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class LoginState extends GenericState {
     public LoginState(AtmScreen parent) {
@@ -37,13 +36,13 @@ public class LoginState extends GenericState {
         int yPos = parent.height / 2 - parent.viewHeight / 2 + 14;
 
 
-        var usernameInput = new TextInput(parent.width/2,yPos,200-8,20,Text.translatable("login.username"));
+        var usernameInput = new TextInput(parent.width / 2, yPos, 200 - 8, 20, Text.translatable("login.username"));
         usernameInput.startListen(this::setUsername);
         children.add(usernameInput);
 
         yPos += 24;
-        var passwordInput = new TextInput(parent.width/2,yPos,200-8,20,Text.translatable("login.password"));
-        passwordInput.setRenderTextProvider((string,i)-> Text.of("*".repeat(string.length())).asOrderedText());
+        var passwordInput = new TextInput(parent.width / 2, yPos, 200 - 8, 20, Text.translatable("login.password"));
+        passwordInput.setRenderTextProvider((string, i) -> Text.of("*".repeat(string.length())).asOrderedText());
         passwordInput.startListen(this::setPassword);
         children.add(passwordInput);
 
@@ -51,9 +50,9 @@ public class LoginState extends GenericState {
         children.add(new Button
                 .Builder()
                 .text(Text.literal("Login"))
-                .width(200-8)
+                .width(200 - 8)
                 .position(parent.width / 2, yPos)
-                        .action(this::login)
+                .action(this::login)
                 .build());
 
 
@@ -63,7 +62,7 @@ public class LoginState extends GenericState {
                 .text(Text.literal("Register"))
                 .width(98)
                 .position(parent.width / 2, yPos)
-                        .action(this::register)
+                .action(this::register)
                 .build());
     }
 
@@ -71,7 +70,25 @@ public class LoginState extends GenericState {
         parent.setState(new RegisterState(parent));
     }
 
-    private void login() {
 
+    RequestQueue queue = RequestQueue.getInstance();
+
+    private void login() {
+        parent.setState(new StubState(parent, "LoadingStub"));
+
+        //noinspection FieldMayBeFinal
+        queue.request("login", new Object() {
+                    String username = LoginState.this.username;
+                    String password = LoginState.this.password;
+                },
+                (response, data) -> {
+                    if(response.status() == Status.SUCCESS){
+                        parent.setState(new StubState(parent, "LoggedInStub"));
+                    }
+                    else {
+                        parent.setState(this);
+
+                    }
+                });
     }
 }

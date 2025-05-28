@@ -7,7 +7,7 @@ import net.minecraft.client.gui.Selectable;
 import java.util.List;
 
 public interface Component extends Element, Drawable, Selectable, ComponentContainer {
-    default List<Component> innerComponent(){
+    default List<Component> innerComponents(){
         return List.of(this);
     }
 }

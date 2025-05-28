@@ -7,6 +7,8 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 
+import java.util.ArrayList;
+
 public class AtmScreen extends Screen {
 
     public int viewWidth = 200;
@@ -21,9 +23,9 @@ public class AtmScreen extends Screen {
     @Override
     protected void init() {
         state.initComponents();
-        children().clear();
+        new ArrayList<>(children()).forEach(this::remove);
         state.initComponents();
-        state.realComponents().forEach(this::addDrawableChild);
+        state.innerComponents().forEach(this::addDrawableChild);
     }
 
 

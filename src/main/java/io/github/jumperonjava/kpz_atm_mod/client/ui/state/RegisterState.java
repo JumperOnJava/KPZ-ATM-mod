@@ -82,6 +82,6 @@ public class RegisterState extends GenericState {
     }
 
     private void register() {
-
+        
     }
 }

@@ -15,9 +15,8 @@ public abstract class GenericState implements AtmScreenState{
         this.parent = parent;
     }
 
-    List<Component> children;
-    public List<Component> innerComponent() {
-        var list = new ArrayList<Component>();
-        return children.stream().flatMap(component -> component.innerComponent().stream()).collect(Collectors.toList());
+    List<Component> children = new ArrayList<>();
+    public List<Component> innerComponents() {
+        return children.stream().flatMap(component -> component.innerComponents().stream()).collect(Collectors.toList());
     }
 }

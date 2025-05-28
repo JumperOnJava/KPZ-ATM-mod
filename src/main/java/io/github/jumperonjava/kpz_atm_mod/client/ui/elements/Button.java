@@ -38,9 +38,9 @@ public class Button implements Component{
         context.drawWrappedTextWithShadow(client.textRenderer, text, centerX-expectedWidth/2, centerY-4, width, Colors.WHITE);
     }
 
-
-    private boolean isMouseOver(int mouseX, int mouseY) {
-        return Math.abs(mouseX - centerX) < width/2 && Math.abs(mouseY - centerY) < height/2;
+    @Override
+    public boolean isMouseOver(double mouseX, double mouseY) {
+        return Math.abs(mouseX - centerX) < (double) width /2 && Math.abs(mouseY - centerY) < (double) height /2;
     }
 
     @Override

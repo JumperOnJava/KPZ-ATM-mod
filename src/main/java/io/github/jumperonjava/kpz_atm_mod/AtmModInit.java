@@ -22,12 +22,17 @@ public class AtmModInit implements ModInitializer {
 
     public static final String MOD_ID = "kpz_atm_mod";
     public static Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+    public static Gson GSON = new Gson();
 
     static Block Atm = Blocks.register(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(AtmModInit.MOD_ID, "atm_block")), AtmBlock::new, AbstractBlock.Settings.create().hardness(1).lootTable(Optional.empty()));
     static Item AtmItem = Items.register(Atm);
     @Override
     public void onInitialize() {
         OpenAtmS2CPacket.register();
+        RequestPacket.register();
+        ResponsePacket.register();
+
+        RequestPacket.registerServerReceive();
     }
 
 
