@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "kpz_atm_mod",
+  "version": "${version}",
+  "name": "KPZ ATM mod",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/kpz_atm_mod/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "io.github.jumperonjava.kpz_atm_mod.client.AtmModClientInit"
+    ],
+    "main": [
+      "io.github.jumperonjava.kpz_atm_mod.AtmModInit"
+    ]
+  },
+  "mixins": [
+    "kpz_atm_mod.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

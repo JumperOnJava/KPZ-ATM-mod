@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "kpz_atm_mod:block/atm_block"
+  }
+}

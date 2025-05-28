@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "kpz_atm_mod:block/atm_block"
+    }
+  }
+}

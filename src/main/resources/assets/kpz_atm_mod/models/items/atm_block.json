@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "kpz_atm_mod:block/atm_block"
+  }
+}
