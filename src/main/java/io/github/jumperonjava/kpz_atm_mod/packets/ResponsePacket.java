@@ -1,7 +1,7 @@
 package io.github.jumperonjava.kpz_atm_mod.packets;
 
 import io.github.jumperonjava.kpz_atm_mod.AtmModInit;
-import io.github.jumperonjava.kpz_atm_mod.client.RequestQueue;
+import io.github.jumperonjava.kpz_atm_mod.client.SimpleRequestQueue;
 import io.github.jumperonjava.kpz_atm_mod.endpoints.Status;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
@@ -39,9 +39,7 @@ public record ResponsePacket(int id, Status status, String data) implements Cust
         }
 
         public static void registerClientReceive() {
-            ClientPlayNetworking.registerGlobalReceiver(ResponsePacket.ID, (payload, context) -> {
-                RequestQueue.getInstance().onResponse(payload);
-            });
+            ClientPlayNetworking.registerGlobalReceiver(ResponsePacket.ID, SimpleRequestQueue.getInstance());
         }
 
 }

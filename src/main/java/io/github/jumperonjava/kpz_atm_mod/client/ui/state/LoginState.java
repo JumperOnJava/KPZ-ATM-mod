@@ -1,6 +1,6 @@
 package io.github.jumperonjava.kpz_atm_mod.client.ui.state;
 
-import io.github.jumperonjava.kpz_atm_mod.client.RequestQueue;
+import io.github.jumperonjava.kpz_atm_mod.client.SimpleRequestQueue;
 import io.github.jumperonjava.kpz_atm_mod.client.ui.AtmScreen;
 import io.github.jumperonjava.kpz_atm_mod.client.ui.elements.Button;
 import io.github.jumperonjava.kpz_atm_mod.client.ui.elements.TextInput;
@@ -71,7 +71,7 @@ public class LoginState extends GenericState {
     }
 
 
-    RequestQueue queue = RequestQueue.getInstance();
+    SimpleRequestQueue queue = SimpleRequestQueue.getInstance();
 
     private void login() {
         parent.setState(new StubState(parent, "LoadingStub"));

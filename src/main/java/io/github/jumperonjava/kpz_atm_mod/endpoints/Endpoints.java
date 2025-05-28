@@ -10,14 +10,25 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 
 import java.util.HashMap;
 
-public class Endpoints {
+public class Endpoints implements ServerPlayNetworking.PlayPayloadHandler<RequestPacket> {
 
 
-    static HashMap<String, Endpoint> endpoints = new HashMap<>();
+    public static Endpoints getInstance() {
+        if(instance == null) {
+            instance = new Endpoints();
+        }
+        return instance;
+    }
 
-    public static Endpoint LOGIN = Endpoints::login;
+    private static Endpoints instance;
 
-    private static Object login(ServerPlayNetworking.Context context, JsonObject body) {
+
+
+    HashMap<String, Endpoint> endpoints = new HashMap<>();
+
+    private Endpoint LOGIN = this::login;
+
+    private Object login(ServerPlayNetworking.Context context, JsonObject body) {
         if(body.get("username").getAsString().equals("admin") && body.get("password").getAsString().equals("admin")) {
             return new Object(){
                 String token = "";
@@ -25,12 +36,13 @@ public class Endpoints {
         }
         else throw new EndpointException(Status.ERROR, "Invalid username or password");
     }
-    static {
+    private Endpoints(){
         endpoints.put("login", LOGIN);
     }
 
 
-    public static void handleRequests(RequestPacket requestPacket, ServerPlayNetworking.Context context) {
+    @Override
+    public void receive(RequestPacket requestPacket, ServerPlayNetworking.Context context) {
         new Thread(() -> {
             ResponsePacket responsePacket = null;
             try{

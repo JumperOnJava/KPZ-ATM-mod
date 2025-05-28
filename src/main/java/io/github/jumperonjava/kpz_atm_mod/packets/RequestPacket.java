@@ -39,7 +39,7 @@ public record RequestPacket(int id, String endpoint, String data) implements Cus
         }
 
         public static void registerServerReceive() {
-                ServerPlayNetworking.registerGlobalReceiver(RequestPacket.ID, Endpoints::handleRequests);
+                ServerPlayNetworking.registerGlobalReceiver(RequestPacket.ID, Endpoints.getInstance());
         }
 
 
