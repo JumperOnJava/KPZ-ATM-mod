@@ -16,15 +16,18 @@ import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.Optional;
 
-public class AtmModInit implements ModInitializer {
+public class AtmMod implements ModInitializer {
 
     public static final String MOD_ID = "kpz_atm_mod";
     public static Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static Gson GSON = new Gson();
 
-    static Block Atm = Blocks.register(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(AtmModInit.MOD_ID, "atm_block")), AtmBlock::new, AbstractBlock.Settings.create().hardness(1).lootTable(Optional.empty()));
+    static Block Atm = Blocks.register(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(AtmMod.MOD_ID, "atm_block")), AtmBlock::new, AbstractBlock.Settings.create().hardness(1).lootTable(Optional.empty()));
     static Item AtmItem = Items.register(Atm);
     @Override
     public void onInitialize() {
@@ -35,5 +38,14 @@ public class AtmModInit implements ModInitializer {
         RequestPacket.registerServerReceive();
     }
 
+    public static String hashPassword(String password) {
+        try {
+            var md = MessageDigest.getInstance("SHA-256");
+            byte[] hash = md.digest(password.getBytes());
+            return Base64.getEncoder().encodeToString(hash);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

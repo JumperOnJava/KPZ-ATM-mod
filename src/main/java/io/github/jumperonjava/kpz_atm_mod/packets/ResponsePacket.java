@@ -1,6 +1,6 @@
 package io.github.jumperonjava.kpz_atm_mod.packets;
 
-import io.github.jumperonjava.kpz_atm_mod.AtmModInit;
+import io.github.jumperonjava.kpz_atm_mod.AtmMod;
 import io.github.jumperonjava.kpz_atm_mod.client.SimpleRequestQueue;
 import io.github.jumperonjava.kpz_atm_mod.endpoints.Status;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -11,7 +11,7 @@ import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
 
 public record ResponsePacket(int id, Status status, String data) implements CustomPayload {
-        public static final Identifier PACKET_ID = Identifier.of(AtmModInit.MOD_ID, "request");
+        public static final Identifier PACKET_ID = Identifier.of(AtmMod.MOD_ID, "request");
         public static final Id<ResponsePacket> ID = new Id<>(PACKET_ID);
 
         @Override

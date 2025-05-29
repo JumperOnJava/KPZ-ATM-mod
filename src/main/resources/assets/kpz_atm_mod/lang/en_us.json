@@ -2,6 +2,44 @@
   "block.kpz_atm_mod.atm_block": "ATM",
   "login.title": "Login into ATM",
   "login.username": "Username",
-  "login.password": "Password"
+  "login.password": "Password",
+  "login.register": "Register",
+  "login.login": "Log in",
 
+  "register.title": "Register",
+  "register.username": "Username",
+  "register.password": "Password",
+  "register.passwordrepeat": "Repeat password",
+  "register.confirm": "Register",
+  "register.cancel": "Back to log in",
+
+  "loggedin.title": "Home Menu",
+  "loggedin.balance": "Balance: %d diamonds",
+  "loggedin.balance.fetching": "Fetching balance...",
+  "loggedin.balance.error": "Balance error: %s",
+
+  "deposit.title": "Deposit diamonds",
+  "deposit.amount": "Amount:",
+  "deposit.confirm": "Confirm",
+  "deposit.cancel": "Cancel",
+  "deposit.server.invalid_amount": "Error: Invalid amount",
+  "deposit.server.invalid_token": "Error: Invalid amount",
+
+  "withdraw.title": "Withdraw diamonds",
+  "withdraw.amount": "Amount:",
+  "withdraw.confirm": "Confirm",
+  "withdraw.cancel": "Cancel",
+  "withdraw.server.invalid_amount": "Error: Invalid amount",
+  "withdraw.server.invalid_token": "Error: Invalid token",
+  "withdraw.server.not_enough_balance":  "Error: Balance too low to withdraw this amount",
+
+  "transfer.title": "Transfer diamonds",
+  "transfer.receiver.input": "Receiver",
+  "transfer.amount": "Amount:",
+  "transfer.confirm": "Confirm",
+  "transfer.cancel": "Cancel",
+  "transfer.server.invalid_amount": "Error: Invalid amount",
+  "transfer.server.receiver_not_found": "Error: Invalid amount",
+  "transfer.server.cannot_send_self": "Cannot send yourself",
+  "transfer.server.not_enough_balance":  "Error: Balance too low to transfer this amount"
 }

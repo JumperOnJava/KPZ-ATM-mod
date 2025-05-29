@@ -11,10 +11,10 @@
   "environment": "*",
   "entrypoints": {
     "client": [
-      "io.github.jumperonjava.kpz_atm_mod.client.AtmModClientInit"
+      "io.github.jumperonjava.kpz_atm_mod.client.AtmModClient"
     ],
     "main": [
-      "io.github.jumperonjava.kpz_atm_mod.AtmModInit"
+      "io.github.jumperonjava.kpz_atm_mod.AtmMod"
     ]
   },
   "mixins": [

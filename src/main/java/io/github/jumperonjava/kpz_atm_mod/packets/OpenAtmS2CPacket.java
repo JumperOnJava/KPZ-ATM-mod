@@ -1,6 +1,6 @@
 package io.github.jumperonjava.kpz_atm_mod.packets;
 
-import io.github.jumperonjava.kpz_atm_mod.AtmModInit;
+import io.github.jumperonjava.kpz_atm_mod.AtmMod;
 import io.github.jumperonjava.kpz_atm_mod.client.ui.AtmScreen;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
@@ -11,7 +11,7 @@ import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
 
 public record OpenAtmS2CPacket() implements CustomPayload {
-        public static final Identifier PACKET_ID = Identifier.of(AtmModInit.MOD_ID, "open_atm_screen");
+        public static final Identifier PACKET_ID = Identifier.of(AtmMod.MOD_ID, "open_atm_screen");
         public static final CustomPayload.Id<OpenAtmS2CPacket> ID = new CustomPayload.Id<>(PACKET_ID);
 
         public static void register() {
