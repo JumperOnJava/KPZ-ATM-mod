@@ -22,24 +22,24 @@
   "deposit.amount": "Amount:",
   "deposit.confirm": "Confirm",
   "deposit.cancel": "Cancel",
-  "deposit.server.invalid_amount": "Error: Invalid amount",
-  "deposit.server.invalid_token": "Error: Invalid amount",
+  "deposit.error.invalid_amount": "Error: Invalid amount",
+  "deposit.error.invalid_token": "Error: Invalid amount",
 
   "withdraw.title": "Withdraw diamonds",
   "withdraw.amount": "Amount:",
   "withdraw.confirm": "Confirm",
   "withdraw.cancel": "Cancel",
-  "withdraw.server.invalid_amount": "Error: Invalid amount",
-  "withdraw.server.invalid_token": "Error: Invalid token",
-  "withdraw.server.not_enough_balance":  "Error: Balance too low to withdraw this amount",
+  "withdraw.error.invalid_amount": "Error: Invalid amount",
+  "withdraw.error.invalid_token": "Error: Invalid token",
+  "withdraw.error.not_enough_balance":  "Error: Balance too low to withdraw this amount",
 
   "transfer.title": "Transfer diamonds",
   "transfer.receiver.input": "Receiver",
   "transfer.amount": "Amount:",
   "transfer.confirm": "Confirm",
   "transfer.cancel": "Cancel",
-  "transfer.server.invalid_amount": "Error: Invalid amount",
-  "transfer.server.receiver_not_found": "Error: Invalid amount",
-  "transfer.server.cannot_send_self": "Cannot send yourself",
-  "transfer.server.not_enough_balance":  "Error: Balance too low to transfer this amount"
+  "transfer.error.invalid_amount": "Error: Invalid amount",
+  "transfer.error.receiver_not_found": "Error: Invalid amount",
+  "transfer.error.cannot_send_self": "Cannot send yourself",
+  "transfer.error.not_enough_balance":  "Error: Balance too low to transfer this amount"
 }

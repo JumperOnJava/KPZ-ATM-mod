@@ -43,24 +43,24 @@ public class RegisterState extends GenericState {
 
 
     public void renderState() {
-        children = new ArrayList<>();
+        super.renderState();
         int yPos = parent.height / 2 - parent.viewHeight / 2 + 14;
         int centerX = parent.width / 2;
         int centerY = parent.height / 2;
 
 
-        var usernameInput = new TextInput(centerX, yPos, 200 - 8, 20, Text.translatable("register.username"));
+        var usernameInput = new TextInput(centerX, yPos, 200 - 8, 20, Text.translatable("register.username"),username);
         usernameInput.startListen(this::setUsername);
         children.add(usernameInput);
 
         yPos += 24;
-        var passwordInput = new TextInput(centerX, yPos, 200 - 8, 20, Text.translatable("register.password"));
+        var passwordInput = new TextInput(centerX, yPos, 200 - 8, 20, Text.translatable("register.password"),password);
         passwordInput.setRenderTextProvider((string, i) -> Text.of("*".repeat(string.length())).asOrderedText());
         passwordInput.startListen(this::setPassword);
         children.add(passwordInput);
 
         yPos += 24;
-        var passwordRepeatInput = new TextInput(centerX, yPos, 200 - 8, 20, Text.translatable("register.passwordrepeat"));
+        var passwordRepeatInput = new TextInput(centerX, yPos, 200 - 8, 20, Text.translatable("register.passwordrepeat"),passwordRepeat);
         passwordRepeatInput.setRenderTextProvider((string, i) -> Text.of("*".repeat(string.length())).asOrderedText());
         passwordRepeatInput.startListen(this::setPasswordRepeat);
         children.add(passwordRepeatInput);

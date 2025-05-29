@@ -30,7 +30,7 @@ public class MoneyInputState extends GenericState {
 
     @Override
     public void renderState() {
-        children.clear();
+        super.renderState();
 
         int yPos = parent.height / 2 - parent.viewHeight / 2 + 38;
 

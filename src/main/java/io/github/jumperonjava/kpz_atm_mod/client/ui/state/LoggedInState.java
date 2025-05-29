@@ -25,6 +25,7 @@ public class LoggedInState extends GenericState {
 
 
     public void renderState() {
+        super.renderState();
         int yPos = parent.height / 2 - parent.viewHeight / 2 + 14;
 
         var balance = new TextComponent(Text.translatable("loggedin.balance.fetching"),centerX, yPos);

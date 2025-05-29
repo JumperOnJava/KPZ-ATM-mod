@@ -12,7 +12,7 @@ import java.util.Map;
 public class TransferReceiverInputState extends MoneyInputState {
     private final String token;
 
-    private String receiverUsername;
+    private String receiverUsername = "";
 
     public TransferReceiverInputState(AtmScreen parent, String token) {
         super(parent, "transfer", token);
@@ -21,12 +21,11 @@ public class TransferReceiverInputState extends MoneyInputState {
 
     @Override
     public void renderState() {
-        children.clear();
         super.renderState();
 
         int yPos = parent.height / 2 - parent.viewHeight / 2 + 14;
 
-        var textInput = new TextInput(centerX, yPos, parent.viewWidth - 8, 20, Text.translatable("transfer.receiver.input"));
+        var textInput = new TextInput(centerX, yPos, parent.viewWidth - 8, 20, Text.translatable("transfer.receiver.input"), receiverUsername);
         textInput.startListen((receiverUsername) -> {
             this.receiverUsername = receiverUsername;
         });
@@ -41,7 +40,7 @@ public class TransferReceiverInputState extends MoneyInputState {
             if (response.status() == Status.SUCCESS) {
                 parent.setState(new LoggedInState(parent, token));
             } else {
-                warningText.setText(Text.translatable("transfer.server." + body.get("error").getAsString()));
+                warningText.setText(Text.translatable("transfer.error." + body.get("error").getAsString()));
             }
         }));
     }

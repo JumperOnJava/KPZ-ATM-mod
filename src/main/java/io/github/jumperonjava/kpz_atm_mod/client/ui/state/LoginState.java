@@ -33,16 +33,16 @@ public class LoginState extends GenericState {
     String password = "";
 
     public void renderState() {
-        children = new ArrayList<>();
+        super.renderState();
         int yPos = parent.height / 2 - parent.viewHeight / 2 + 14;
 
 
-        var usernameInput = new TextInput(parent.width / 2, yPos, 200 - 8, 20, Text.translatable("login.username"));
+        var usernameInput = new TextInput(parent.width / 2, yPos, 200 - 8, 20, Text.translatable("login.username"),username);
         usernameInput.startListen(this::setUsername);
         children.add(usernameInput);
 
         yPos += 24;
-        var passwordInput = new TextInput(parent.width / 2, yPos, 200 - 8, 20, Text.translatable("login.password"));
+        var passwordInput = new TextInput(parent.width / 2, yPos, 200 - 8, 20, Text.translatable("login.password"),password);
         passwordInput.setRenderTextProvider((string, i) -> Text.of("*".repeat(string.length())).asOrderedText());
         passwordInput.startListen(this::setPassword);
         children.add(passwordInput);

@@ -61,8 +61,6 @@ public class Endpoints implements ServerPlayNetworking.PlayPayloadHandler<Reques
         double amount = getRequiredDouble(body, "amount");
         String token = getRequiredString(body, "token");
 
-        int get
-
         return bankService.withdrawMoney(amount, token);
     }
 
