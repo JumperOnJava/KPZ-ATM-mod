@@ -1,7 +1,7 @@
 package io.github.jumperonjava.kpz_atm_mod.client;
 
 import com.google.gson.JsonObject;
-import io.github.jumperonjava.kpz_atm_mod.AtmModInit;
+import io.github.jumperonjava.kpz_atm_mod.AtmMod;
 import io.github.jumperonjava.kpz_atm_mod.packets.RequestPacket;
 import io.github.jumperonjava.kpz_atm_mod.packets.ResponsePacket;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -26,15 +26,15 @@ public class SimpleRequestQueue implements RequestQueue{
 
     int packetNumber = 0;
     public void request(String endpoint, Object data, BiConsumer<ResponsePacket,JsonObject> packet) {
-        ClientPlayNetworking.send(new RequestPacket(packetNumber,endpoint,AtmModInit.GSON.toJson(data.toString())));
+        ClientPlayNetworking.send(new RequestPacket(packetNumber,endpoint, AtmMod.GSON.toJson(data)));
         queue.put(packetNumber++, packet);
     }
 
     @Override
     public void receive(ResponsePacket packet, ClientPlayNetworking.Context context) {
         queue.getOrDefault(packet.id(),(p,jsonObject)->{
-            AtmModInit.LOGGER.warn("Received wrong response id {} ",packet.id());
-        }).accept(packet,AtmModInit.GSON.fromJson(packet.data(), JsonObject.class));
+            AtmMod.LOGGER.warn("Received wrong response id {} ",packet.id());
+        }).accept(packet, AtmMod.GSON.fromJson(packet.data(), JsonObject.class));
         queue.remove(packet.id());
     }
 }

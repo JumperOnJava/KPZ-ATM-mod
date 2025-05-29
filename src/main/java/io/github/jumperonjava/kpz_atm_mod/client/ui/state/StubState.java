@@ -17,7 +17,7 @@ public class StubState extends GenericState {
     }
 
     @Override
-    public void initComponents() {
+    public void renderState() {
     }
 
 }

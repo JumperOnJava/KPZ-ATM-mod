@@ -10,9 +10,13 @@ import java.util.stream.Collectors;
 public abstract class GenericState implements AtmScreenState{
 
     protected final AtmScreen parent;
+    int centerX;
+    int centerY;
 
     public GenericState(AtmScreen parent) {
         this.parent = parent;
+        centerX = parent.width/2;
+        centerY = parent.height/2;
     }
 
     List<Component> children = new ArrayList<>();

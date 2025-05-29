@@ -22,9 +22,9 @@ public class AtmScreen extends Screen {
 
     @Override
     protected void init() {
-        state.initComponents();
+        state.renderState();
         new ArrayList<>(children()).forEach(this::remove);
-        state.initComponents();
+        state.renderState();
         state.innerComponents().forEach(this::addDrawableChild);
     }
 

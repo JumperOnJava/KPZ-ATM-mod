@@ -8,6 +8,7 @@ import io.github.jumperonjava.kpz_atm_mod.endpoints.Status;
 import net.minecraft.text.Text;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class LoginState extends GenericState {
     public LoginState(AtmScreen parent) {
@@ -31,7 +32,7 @@ public class LoginState extends GenericState {
 
     String password = "";
 
-    public void initComponents() {
+    public void renderState() {
         children = new ArrayList<>();
         int yPos = parent.height / 2 - parent.viewHeight / 2 + 14;
 
@@ -70,24 +71,22 @@ public class LoginState extends GenericState {
         parent.setState(new RegisterState(parent));
     }
 
-
     SimpleRequestQueue queue = SimpleRequestQueue.getInstance();
 
     private void login() {
         parent.setState(new StubState(parent, "LoadingStub"));
 
         //noinspection FieldMayBeFinal
-        queue.request("login", new Object() {
-                    String username = LoginState.this.username;
-                    String password = LoginState.this.password;
-                },
+        queue.request("login", Map.of(
+                        "username", this.username,
+                        "password", this.password
+                ),
                 (response, data) -> {
                     if(response.status() == Status.SUCCESS){
-                        parent.setState(new StubState(parent, "LoggedInStub"));
+                        parent.setState(new LoggedInState(parent,data.get("token").getAsString()));
                     }
                     else {
                         parent.setState(this);
-
                     }
                 });
     }

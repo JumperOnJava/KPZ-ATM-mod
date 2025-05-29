@@ -5,5 +5,5 @@ import net.minecraft.text.Text;
 
 public interface AtmScreenState extends ComponentContainer {
     Text title();
-    void initComponents();
+    void renderState();
 }
