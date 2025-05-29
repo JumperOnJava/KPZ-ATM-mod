@@ -88,12 +88,15 @@ public class LoggedInState extends GenericState {
     }
 
     private void deposit() {
+        parent.setState(new MoneyInputState(parent, "deposit", token));
     }
 
     private void withdraw() {
+        parent.setState(new MoneyInputState(parent, "withdraw", token));
     }
 
     private void transfer() {
+        parent.setState(new TransferReceiverInputState(parent, token));
     }
 
     private void history() {
