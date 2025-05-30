@@ -1,6 +1,5 @@
 package io.github.jumperonjava.kpz_atm_mod.server.bank;
 
-import io.github.jumperonjava.kpz_atm_mod.server.endpoints.EndpointException;
 import io.github.jumperonjava.kpz_atm_mod.server.Status;
 
 import java.sql.*;

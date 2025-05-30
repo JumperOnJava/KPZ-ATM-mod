@@ -1,12 +1,13 @@
 package io.github.jumperonjava.kpz_atm_mod;
 
 import com.google.gson.Gson;
-import io.github.jumperonjava.kpz_atm_mod.server.endpoints.Endpoints;
-import io.github.jumperonjava.kpz_atm_mod.server.ServerPacketQueue;
+import io.github.jumperonjava.kpz_atm_mod.server.networking.RequestEndpointAdapter;
+import io.github.jumperonjava.kpz_atm_mod.server.bank.DefaultBankEndpoints;
+import io.github.jumperonjava.kpz_atm_mod.server.networking.ServerPacketQueue;
 import io.github.jumperonjava.kpz_atm_mod.packets.OpenAtmS2CPacket;
 import io.github.jumperonjava.kpz_atm_mod.packets.RequestPacket;
 import io.github.jumperonjava.kpz_atm_mod.packets.ResponsePacket;
-import io.github.jumperonjava.kpz_atm_mod.server.ServerThreadExecutor;
+import io.github.jumperonjava.kpz_atm_mod.server.networking.ServerThreadExecutor;
 import io.github.jumperonjava.kpz_atm_mod.server.bank.DatabaseBankService;
 import io.github.jumperonjava.kpz_atm_mod.server.bank.DatabaseUtil;
 import net.fabricmc.api.ModInitializer;
@@ -43,8 +44,9 @@ public class AtmMod implements ModInitializer {
         var database = new DatabaseUtil("root", "", "jdbc:mysql://localhost:3306/bankdatabase");
         var bank = new DatabaseBankService(database);
         var serverThreadExecutor = new ServerThreadExecutor();
-        var endpoints = new Endpoints(bank, serverThreadExecutor);
-        var serverQueue = new ServerPacketQueue(endpoints);
+        var endpoints = new DefaultBankEndpoints(bank, serverThreadExecutor);
+        var endpointHandler = new RequestEndpointAdapter(endpoints);
+        var serverQueue = new ServerPacketQueue(endpointHandler);
 
 
         ServerPlayNetworking.registerGlobalReceiver(RequestPacket.ID, serverQueue);

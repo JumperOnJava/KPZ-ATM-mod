@@ -1,4 +1,4 @@
-package io.github.jumperonjava.kpz_atm_mod.server;
+package io.github.jumperonjava.kpz_atm_mod.server.networking;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.server.MinecraftServer;

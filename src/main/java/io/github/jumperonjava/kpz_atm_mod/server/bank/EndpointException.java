@@ -1,4 +1,4 @@
-package io.github.jumperonjava.kpz_atm_mod.server.endpoints;
+package io.github.jumperonjava.kpz_atm_mod.server.bank;
 
 import io.github.jumperonjava.kpz_atm_mod.server.Status;
 

@@ -4,6 +4,7 @@ import io.github.jumperonjava.kpz_atm_mod.client.SimpleRequestQueue;
 import io.github.jumperonjava.kpz_atm_mod.client.ui.AtmScreen;
 import io.github.jumperonjava.kpz_atm_mod.client.ui.elements.Button;
 import io.github.jumperonjava.kpz_atm_mod.client.ui.elements.Component;
+import io.github.jumperonjava.kpz_atm_mod.client.ui.elements.ComponentContainer;
 import io.github.jumperonjava.kpz_atm_mod.client.ui.elements.TextComponent;
 import io.github.jumperonjava.kpz_atm_mod.server.Status;
 import net.minecraft.client.MinecraftClient;
@@ -14,6 +15,7 @@ import net.minecraft.client.gui.widget.EntryListWidget;
 import net.minecraft.text.Text;
 import net.minecraft.util.Colors;
 
+import java.util.List;
 import java.util.Map;
 
 public class HistoryState extends TokenState  {
@@ -71,8 +73,6 @@ public class HistoryState extends TokenState  {
     }
 
     class HistoryScrollList extends EntryListWidget<HistoryScrollList.HistoryElement> implements Component {
-
-
         public HistoryScrollList() {
             super(MinecraftClient.getInstance(), parent.viewWidth - 8, parent.viewHeight - 36, centerY - parent.viewHeight / 2 + 6, 40);
             setX(getRowLeft());
@@ -91,6 +91,11 @@ public class HistoryState extends TokenState  {
         @Override
         protected int getScrollbarX() {
             return super.getRowRight() - 34;
+        }
+
+        @Override
+        public List<Component> innerComponents() {
+            return List.of(this);
         }
 
         static class HistoryElement extends EntryListWidget.Entry<HistoryElement> {

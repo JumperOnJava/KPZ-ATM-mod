@@ -1,24 +1,23 @@
-package io.github.jumperonjava.kpz_atm_mod.server;
+package io.github.jumperonjava.kpz_atm_mod.server.networking;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import io.github.jumperonjava.kpz_atm_mod.AtmMod;
 import io.github.jumperonjava.kpz_atm_mod.packets.RequestPacket;
 import io.github.jumperonjava.kpz_atm_mod.packets.ResponsePacket;
-import io.github.jumperonjava.kpz_atm_mod.server.endpoints.Endpoint;
-import io.github.jumperonjava.kpz_atm_mod.server.endpoints.EndpointException;
-import io.github.jumperonjava.kpz_atm_mod.server.endpoints.EndpointProvider;
+import io.github.jumperonjava.kpz_atm_mod.server.Status;
+import io.github.jumperonjava.kpz_atm_mod.server.bank.EndpointException;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 
 import java.util.*;
 
 public class ServerPacketQueue implements ServerPlayNetworking.PlayPayloadHandler<RequestPacket> {
 
-    private final HashMap<String, Endpoint> endpoints = new HashMap<>();
+    private final HashMap<String, RequestTypeHandler> endpoints = new HashMap<>();
     private Thread thread;
 
-    public ServerPacketQueue(EndpointProvider endpoints) {
-        this.endpoints.putAll(endpoints.getEndpoints());
+    public ServerPacketQueue(RequestHandlerProvider requestHandlerProvider) {
+        this.endpoints.putAll(requestHandlerProvider.getRequestHandlers());
         this.thread = new Thread(this::handleRequestPacket);
     }
 
@@ -56,13 +55,13 @@ public class ServerPacketQueue implements ServerPlayNetworking.PlayPayloadHandle
         public void run() {
             ResponsePacket responsePacket;
             try {
-                Endpoint endpoint = endpoints.get(requestPacket.endpoint());
-                if (endpoint == null) {
-                    throw new EndpointException(Status.ERROR, "Unknown endpoint: " + requestPacket.endpoint());
+                RequestTypeHandler requestTypeHandler = endpoints.get(requestPacket.requestType());
+                if (requestTypeHandler == null) {
+                    throw new EndpointException(Status.ERROR, "Unknown requestType: " + requestPacket.requestType());
                 }
 
                 JsonObject requestBody = AtmMod.GSON.fromJson(requestPacket.data(), JsonObject.class);
-                Object response = endpoint.handle(context, requestBody);
+                Object response = requestTypeHandler.handle(context, requestBody);
 
                 responsePacket = new ResponsePacket(
                         requestPacket.id(),

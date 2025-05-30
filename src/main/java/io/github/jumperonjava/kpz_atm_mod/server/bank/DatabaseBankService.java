@@ -1,13 +1,11 @@
 package io.github.jumperonjava.kpz_atm_mod.server.bank;
 
 import io.github.jumperonjava.kpz_atm_mod.server.Status;
-import io.github.jumperonjava.kpz_atm_mod.server.endpoints.EndpointException;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;

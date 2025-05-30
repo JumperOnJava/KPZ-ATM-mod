@@ -38,4 +38,9 @@ public class TextInput extends TextFieldWidget implements Component, Notifier<St
         listeners.forEach(listener->listener.accept(s));
     }
 
+    @Override
+    public List<Component> innerComponents(){
+        return List.of(this);
+    }
+
 }

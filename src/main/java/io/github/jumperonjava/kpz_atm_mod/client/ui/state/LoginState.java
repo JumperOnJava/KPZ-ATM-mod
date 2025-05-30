@@ -72,7 +72,7 @@ public class LoginState extends GenericState {
 
 
     private void login() {
-        parent.setState(new StubState(parent, "LoadingStub"));
+        parent.setState(new StubState(parent, "Loading"));
 
         //noinspection FieldMayBeFinal
         parent.requestQueue.request("login", Map.of(

@@ -7,6 +7,8 @@ import net.minecraft.client.gui.screen.narration.NarrationPart;
 import net.minecraft.text.Text;
 import net.minecraft.util.Colors;
 
+import java.util.List;
+
 public class TextComponent implements Component {
 
     private Text text;
@@ -46,6 +48,9 @@ public class TextComponent implements Component {
     @Override
     public void appendNarrations(NarrationMessageBuilder builder) {
         builder.put(NarrationPart.TITLE, text);
+    }
+    public List<Component> innerComponents(){
+        return List.of(this);
     }
 
 }

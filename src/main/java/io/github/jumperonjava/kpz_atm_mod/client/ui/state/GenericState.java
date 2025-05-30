@@ -2,6 +2,7 @@ package io.github.jumperonjava.kpz_atm_mod.client.ui.state;
 
 import io.github.jumperonjava.kpz_atm_mod.client.ui.AtmScreen;
 import io.github.jumperonjava.kpz_atm_mod.client.ui.elements.Component;
+import io.github.jumperonjava.kpz_atm_mod.client.ui.elements.ComponentContainer;
 
 import java.util.ArrayList;
 import java.util.List;

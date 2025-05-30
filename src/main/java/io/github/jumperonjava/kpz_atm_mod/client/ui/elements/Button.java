@@ -1,6 +1,7 @@
 package io.github.jumperonjava.kpz_atm_mod.client.ui.elements;
 
 import io.github.jumperonjava.kpz_atm_mod.client.ui.AtmColors;
+import io.github.jumperonjava.kpz_atm_mod.client.ui.elements.event.Action;
 import io.github.jumperonjava.kpz_atm_mod.client.ui.elements.event.Listener;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -51,6 +52,11 @@ public class Button implements Component{
         }
         return false;
     }
+
+    public List<Component> innerComponents(){
+        return List.of(this);
+    }
+
 
 
     //Required by Element interface to allow focusing and tab execution
