@@ -16,13 +16,11 @@ import net.minecraft.util.Colors;
 
 import java.util.Map;
 
-public class HistoryState extends GenericState {
-    private final String token;
+public class HistoryState extends TokenState  {
     protected TextComponent warningText;
 
     public HistoryState(AtmScreen parent, String token) {
-        super(parent);
-        this.token = token;
+        super(parent, token);
     }
 
     @Override

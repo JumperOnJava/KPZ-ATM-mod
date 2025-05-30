@@ -10,16 +10,14 @@ import net.minecraft.text.Text;
 import java.util.List;
 import java.util.Map;
 
-public class MoneyInputState extends GenericState {
-    private final String token;
+public class MoneyInputState extends TokenState  {
     private final String endpoint;
     private TextComponent text;
     protected int value;
     protected TextComponent warningText;
 
     public MoneyInputState(AtmScreen parent, String endpoint, String token) {
-        super(parent);
-        this.token = token;
+        super(parent,token);
         this.endpoint = endpoint;
     }
 

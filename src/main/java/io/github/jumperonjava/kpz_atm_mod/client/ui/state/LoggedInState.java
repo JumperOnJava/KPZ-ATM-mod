@@ -9,13 +9,10 @@ import net.minecraft.text.Text;
 
 import java.util.Map;
 
-public class LoggedInState extends GenericState {
-
-    String token;
+public class LoggedInState extends TokenState {
 
     public LoggedInState(AtmScreen parent, String token) {
-        super(parent);
-        this.token = token;
+        super(parent, token);
     }
 
     @Override
