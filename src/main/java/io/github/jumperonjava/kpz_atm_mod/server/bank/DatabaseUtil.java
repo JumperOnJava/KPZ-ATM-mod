@@ -1,17 +1,17 @@
-package io.github.jumperonjava.kpz_atm_mod.endpoints.bank;
+package io.github.jumperonjava.kpz_atm_mod.server.bank;
 
-import io.github.jumperonjava.kpz_atm_mod.endpoints.EndpointException;
-import io.github.jumperonjava.kpz_atm_mod.endpoints.Status;
+import io.github.jumperonjava.kpz_atm_mod.server.endpoints.EndpointException;
+import io.github.jumperonjava.kpz_atm_mod.server.Status;
 
 import java.sql.*;
 import java.util.function.Consumer;
 
-public class Database {
+public class DatabaseUtil {
     String username;
     String password;
     String host;
 
-    public Database(String username, String password, String host) {
+    public DatabaseUtil(String username, String password, String host) {
         this.username = username;
         this.password = password;
         this.host = host;

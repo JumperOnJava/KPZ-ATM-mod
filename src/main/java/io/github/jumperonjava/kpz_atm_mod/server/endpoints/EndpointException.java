@@ -1,6 +1,6 @@
-package io.github.jumperonjava.kpz_atm_mod.endpoints;
+package io.github.jumperonjava.kpz_atm_mod.server.endpoints;
 
-import java.io.Serial;
+import io.github.jumperonjava.kpz_atm_mod.server.Status;
 
 public class EndpointException extends RuntimeException {
     public final Status status;

@@ -1,10 +1,17 @@
 package io.github.jumperonjava.kpz_atm_mod;
 
 import com.google.gson.Gson;
+import io.github.jumperonjava.kpz_atm_mod.server.endpoints.Endpoints;
+import io.github.jumperonjava.kpz_atm_mod.server.ServerPacketQueue;
 import io.github.jumperonjava.kpz_atm_mod.packets.OpenAtmS2CPacket;
 import io.github.jumperonjava.kpz_atm_mod.packets.RequestPacket;
 import io.github.jumperonjava.kpz_atm_mod.packets.ResponsePacket;
+import io.github.jumperonjava.kpz_atm_mod.server.ServerThreadExecutor;
+import io.github.jumperonjava.kpz_atm_mod.server.bank.DatabaseBankService;
+import io.github.jumperonjava.kpz_atm_mod.server.bank.DatabaseUtil;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -16,9 +23,6 @@ import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
 import java.util.Optional;
 
 public class AtmMod implements ModInitializer {
@@ -26,6 +30,7 @@ public class AtmMod implements ModInitializer {
     public static final String MOD_ID = "kpz_atm_mod";
     public static Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static Gson GSON = new Gson();
+
 
     static Block Atm = Blocks.register(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(AtmMod.MOD_ID, "atm_block")), AtmBlock::new, AbstractBlock.Settings.create().hardness(1).lootTable(Optional.empty()));
     static Item AtmItem = Items.register(Atm);
@@ -35,17 +40,17 @@ public class AtmMod implements ModInitializer {
         RequestPacket.register();
         ResponsePacket.register();
 
-        RequestPacket.registerServerReceive();
+        var database = new DatabaseUtil("root", "", "jdbc:mysql://localhost:3306/bankdatabase");
+        var bank = new DatabaseBankService(database);
+        var serverThreadExecutor = new ServerThreadExecutor();
+        var endpoints = new Endpoints(bank, serverThreadExecutor);
+        var serverQueue = new ServerPacketQueue(endpoints);
+
+
+        ServerPlayNetworking.registerGlobalReceiver(RequestPacket.ID, serverQueue);
+        ServerTickEvents.END_SERVER_TICK.register(serverThreadExecutor);
     }
 
-    public static String hashPassword(String password) {
-        try {
-            var md = MessageDigest.getInstance("SHA-256");
-            byte[] hash = md.digest(password.getBytes());
-            return Base64.getEncoder().encodeToString(hash);
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 
 }

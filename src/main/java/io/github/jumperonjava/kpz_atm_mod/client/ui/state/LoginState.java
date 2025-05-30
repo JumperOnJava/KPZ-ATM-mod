@@ -4,10 +4,9 @@ import io.github.jumperonjava.kpz_atm_mod.client.SimpleRequestQueue;
 import io.github.jumperonjava.kpz_atm_mod.client.ui.AtmScreen;
 import io.github.jumperonjava.kpz_atm_mod.client.ui.elements.Button;
 import io.github.jumperonjava.kpz_atm_mod.client.ui.elements.TextInput;
-import io.github.jumperonjava.kpz_atm_mod.endpoints.Status;
+import io.github.jumperonjava.kpz_atm_mod.server.Status;
 import net.minecraft.text.Text;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 public class LoginState extends GenericState {
@@ -33,7 +32,7 @@ public class LoginState extends GenericState {
     String password = "";
 
     public void renderState() {
-        children = new ArrayList<>();
+        super.renderState();
         int yPos = parent.height / 2 - parent.viewHeight / 2 + 14;
 
 

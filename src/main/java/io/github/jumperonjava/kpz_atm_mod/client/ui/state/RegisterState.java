@@ -5,10 +5,9 @@ import io.github.jumperonjava.kpz_atm_mod.client.ui.AtmScreen;
 import io.github.jumperonjava.kpz_atm_mod.client.ui.elements.Button;
 import io.github.jumperonjava.kpz_atm_mod.client.ui.elements.TextComponent;
 import io.github.jumperonjava.kpz_atm_mod.client.ui.elements.TextInput;
-import io.github.jumperonjava.kpz_atm_mod.endpoints.Status;
+import io.github.jumperonjava.kpz_atm_mod.server.Status;
 import net.minecraft.text.Text;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 public class RegisterState extends GenericState {
@@ -43,7 +42,8 @@ public class RegisterState extends GenericState {
 
 
     public void renderState() {
-        children = new ArrayList<>();
+        super.renderState();
+
         int yPos = parent.height / 2 - parent.viewHeight / 2 + 14;
         int centerX = parent.width / 2;
         int centerY = parent.height / 2;

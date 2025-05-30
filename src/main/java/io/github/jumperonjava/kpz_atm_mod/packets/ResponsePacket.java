@@ -2,7 +2,7 @@ package io.github.jumperonjava.kpz_atm_mod.packets;
 
 import io.github.jumperonjava.kpz_atm_mod.AtmMod;
 import io.github.jumperonjava.kpz_atm_mod.client.SimpleRequestQueue;
-import io.github.jumperonjava.kpz_atm_mod.endpoints.Status;
+import io.github.jumperonjava.kpz_atm_mod.server.Status;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.network.RegistryByteBuf;

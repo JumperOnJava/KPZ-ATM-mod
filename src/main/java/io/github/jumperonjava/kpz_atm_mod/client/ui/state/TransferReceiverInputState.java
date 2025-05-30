@@ -2,9 +2,8 @@ package io.github.jumperonjava.kpz_atm_mod.client.ui.state;
 
 import io.github.jumperonjava.kpz_atm_mod.client.SimpleRequestQueue;
 import io.github.jumperonjava.kpz_atm_mod.client.ui.AtmScreen;
-import io.github.jumperonjava.kpz_atm_mod.client.ui.elements.TextComponent;
 import io.github.jumperonjava.kpz_atm_mod.client.ui.elements.TextInput;
-import io.github.jumperonjava.kpz_atm_mod.endpoints.Status;
+import io.github.jumperonjava.kpz_atm_mod.server.Status;
 import net.minecraft.text.Text;
 
 import java.util.Map;
@@ -21,7 +20,6 @@ public class TransferReceiverInputState extends MoneyInputState {
 
     @Override
     public void renderState() {
-        children.clear();
         super.renderState();
 
         int yPos = parent.height / 2 - parent.viewHeight / 2 + 14;

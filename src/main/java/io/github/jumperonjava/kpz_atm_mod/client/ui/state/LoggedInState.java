@@ -4,7 +4,7 @@ import io.github.jumperonjava.kpz_atm_mod.client.SimpleRequestQueue;
 import io.github.jumperonjava.kpz_atm_mod.client.ui.AtmScreen;
 import io.github.jumperonjava.kpz_atm_mod.client.ui.elements.Button;
 import io.github.jumperonjava.kpz_atm_mod.client.ui.elements.TextComponent;
-import io.github.jumperonjava.kpz_atm_mod.endpoints.Status;
+import io.github.jumperonjava.kpz_atm_mod.server.Status;
 import net.minecraft.text.Text;
 
 import java.util.Map;
@@ -25,6 +25,7 @@ public class LoggedInState extends GenericState {
 
 
     public void renderState() {
+        super.renderState();
         int yPos = parent.height / 2 - parent.viewHeight / 2 + 14;
 
         var balance = new TextComponent(Text.translatable("loggedin.balance.fetching"),centerX, yPos);

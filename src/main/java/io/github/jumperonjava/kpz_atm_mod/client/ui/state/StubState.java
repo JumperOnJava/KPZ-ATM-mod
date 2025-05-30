@@ -18,6 +18,7 @@ public class StubState extends GenericState {
 
     @Override
     public void renderState() {
+        super.renderState();
     }
 
 }
