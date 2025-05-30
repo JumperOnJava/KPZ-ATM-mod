@@ -87,8 +87,8 @@ public class DefaultBankEndpoints implements BankEndpoints {
         var sender = bankService.getUserIdByToken(token);
         var receiver = bankService.getUserIdByUsername(receiverUsername);
 
-        var senderBalance = bankService.getBalance(receiver);
-        var receiverBalance = bankService.getBalance(sender);
+        var senderBalance = bankService.getBalance(sender);
+        var receiverBalance = bankService.getBalance(receiver);
 
         if (senderBalance < amount) {
             throw new EndpointException(Status.ERROR, "not_enough_balance");

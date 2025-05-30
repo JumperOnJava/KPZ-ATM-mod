@@ -20,8 +20,9 @@ public class AtmBlock extends Block {
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if(!world.isClient) {
             ServerPlayNetworking.send((ServerPlayerEntity) player, new OpenAtmS2CPacket());
+            return ActionResult.SUCCESS;
         }
 
-        return super.onUse(state, world, pos, player, hit);
+        return ActionResult.SUCCESS;
     }
 }

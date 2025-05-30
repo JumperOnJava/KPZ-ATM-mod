@@ -73,7 +73,7 @@ Anywhere where there is possibilty of an error it is handled ASAP.
 For example when handling database queries if any error happens exception thrown and error is reported to client immediately.
 Also, if some request requirement isn't met error is also sent as soon as possible
 
-## Patterns
+## Design Patterns
 
 ### Builder
 
@@ -105,3 +105,43 @@ This used in `AtmScreen` to get all interactable/visual elements from current st
 
 `ServerPacketQueue` accepts `RequestHandlerProvider` as an argument which provides `RequestTypeHandler`s to `ServerPacketQueue`. 
 `BankEndpoints` interface defines bank endpoints with arguments and return values. `RequestEndpointAdaper` provides `ServerPacketQueue` with `RequestTypeHandler`s which internally call `BankEndpoints` implementation methods.
+
+## Refactoring techniques
+
+### Pull up conctructor body
+
+When creating states originally i had only parent field in `GenericState` without constructor. I created constructor which accepts parent and sets parent field.
+
+### Extract subclass
+
+When creating states i noticed that some of `GenericState` subclasses had token field with same reason to exits. I extracted this field to separate class `TokenState` which has this field, and all states that had this field now just extend this class
+
+### Replace Parameter with Explicit Methods
+
+When i created `DatabaseUtil` I had `update` method with `throwIfNoChanges` bool parameter. 
+As it's not very clear what this parameter do i created two new methods `updateOrFail` and `updateSilent` which call original method with `true` or `false`. 
+This makes code more readable as now reader does not have to guess what boolean parameter means
+
+### Extract method
+
+When developing `RequestEndpointAdapter` i noticed that each method had lots of same code that checked if field existed in json object. 
+After noticing that i extracted this code to `getRequiredDouble` and `getRequiredString` methods
+
+### Extract class
+
+When developing backend `DefaultBankEndpoints` noticed that i had lots of similar complex code for database manipulation, 
+but it was kind of hard to separate as each code variant had small differences.
+I decided to create separate `DatabaseBankService` class 
+that handled querying specific data from database 
+(get or set user balance/ add or get user transactions/ get user by token/username/id) 
+and returned clear values. 
+After that i have fully rewritten `DefaultBankEndpoints` to use this new class 
+and as now complex DB interactions were separated from actual logic code became orders of magnitude simpler
+
+### Rename method/class/field
+
+During development lots of names were changed to better represent their responsibility
+`DefaultBankEndpoints` was originally called just `Endpoints` and contained all logic related to handling json object to sending db queries
+`getRequiredDouble/String` was `checkValueExistsAndGetDouble/String` but i quickly changed this name to shorter
+`renderState` was `initState` which is not as clear
+
