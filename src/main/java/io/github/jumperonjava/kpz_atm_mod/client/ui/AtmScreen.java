@@ -21,9 +21,14 @@ public class AtmScreen extends Screen {
     }
 
     @Override
+    public boolean shouldPause() {
+        return false;
+    }
+
+    @Override
     protected void init() {
-        state.renderState();
-        new ArrayList<>(children()).forEach(this::remove);
+        clearChildren();
+
         state.renderState();
         state.innerComponents().forEach(this::addDrawableChild);
     }

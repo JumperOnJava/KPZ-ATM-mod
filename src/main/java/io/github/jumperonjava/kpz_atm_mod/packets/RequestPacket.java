@@ -1,7 +1,7 @@
 package io.github.jumperonjava.kpz_atm_mod.packets;
 
 import io.github.jumperonjava.kpz_atm_mod.AtmMod;
-import io.github.jumperonjava.kpz_atm_mod.endpoints.Endpoints;
+import io.github.jumperonjava.kpz_atm_mod.server.ServerPacketQueue;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.RegistryByteBuf;
@@ -35,10 +35,6 @@ public record RequestPacket(int id, String endpoint, String data) implements Cus
                         buf.writeString(value.data);
                     }
                 });
-        }
-
-        public static void registerServerReceive() {
-                ServerPlayNetworking.registerGlobalReceiver(RequestPacket.ID, Endpoints.getInstance());
         }
 
 

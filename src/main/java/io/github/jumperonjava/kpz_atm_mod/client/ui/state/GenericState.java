@@ -19,9 +19,9 @@ public abstract class GenericState implements AtmScreenState{
 
     @Override
     public void renderState() {
-        children.clear();
         centerX = parent.width/2;
         centerY = parent.height/2;
+        children.clear();
     }
 
     List<Component> children = new ArrayList<>();

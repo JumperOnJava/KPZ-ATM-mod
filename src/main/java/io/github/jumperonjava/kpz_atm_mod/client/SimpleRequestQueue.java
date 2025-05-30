@@ -32,9 +32,15 @@ public class SimpleRequestQueue implements RequestQueue{
 
     @Override
     public void receive(ResponsePacket packet, ClientPlayNetworking.Context context) {
-        queue.getOrDefault(packet.id(),(p,jsonObject)->{
-            AtmMod.LOGGER.warn("Received wrong response id {} ",packet.id());
+        try {
+            queue.getOrDefault(packet.id(),(p,jsonObject)->{
+            AtmMod.LOGGER.warn("Received wrong response id {} with data {}",packet.id(),packet.data());
         }).accept(packet, AtmMod.GSON.fromJson(packet.data(), JsonObject.class));
         queue.remove(packet.id());
+        }
+        catch (Exception e){
+            AtmMod.LOGGER.warn("Received invalid response {} with data {}",packet.id(),packet.data());
+
+        }
     }
 }

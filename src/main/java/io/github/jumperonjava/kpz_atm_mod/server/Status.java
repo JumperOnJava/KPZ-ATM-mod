@@ -1,4 +1,4 @@
-package io.github.jumperonjava.kpz_atm_mod.endpoints;
+package io.github.jumperonjava.kpz_atm_mod.server;
 
 public enum Status {
     SUCCESS,
