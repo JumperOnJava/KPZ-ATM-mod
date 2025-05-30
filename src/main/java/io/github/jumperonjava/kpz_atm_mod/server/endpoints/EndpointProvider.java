@@ -2,6 +2,6 @@ package io.github.jumperonjava.kpz_atm_mod.server.endpoints;
 
 import java.util.Map;
 
-public interface EndpointList {
+public interface EndpointProvider {
     Map<String,Endpoint> getEndpoints();
 }

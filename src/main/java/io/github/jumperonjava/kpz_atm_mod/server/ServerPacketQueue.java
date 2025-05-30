@@ -7,7 +7,7 @@ import io.github.jumperonjava.kpz_atm_mod.packets.RequestPacket;
 import io.github.jumperonjava.kpz_atm_mod.packets.ResponsePacket;
 import io.github.jumperonjava.kpz_atm_mod.server.endpoints.Endpoint;
 import io.github.jumperonjava.kpz_atm_mod.server.endpoints.EndpointException;
-import io.github.jumperonjava.kpz_atm_mod.server.endpoints.EndpointList;
+import io.github.jumperonjava.kpz_atm_mod.server.endpoints.EndpointProvider;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 
 import java.util.*;
@@ -17,7 +17,7 @@ public class ServerPacketQueue implements ServerPlayNetworking.PlayPayloadHandle
     private final HashMap<String, Endpoint> endpoints = new HashMap<>();
     private Thread thread;
 
-    public ServerPacketQueue(EndpointList endpoints) {
+    public ServerPacketQueue(EndpointProvider endpoints) {
         this.endpoints.putAll(endpoints.getEndpoints());
         this.thread = new Thread(this::handleRequestPacket);
     }

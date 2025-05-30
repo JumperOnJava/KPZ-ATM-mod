@@ -28,15 +28,14 @@ public class LoggedInState extends GenericState {
         super.renderState();
         int yPos = parent.height / 2 - parent.viewHeight / 2 + 14;
 
-        var balance = new TextComponent(Text.translatable("loggedin.balance.fetching"),centerX, yPos);
+        var balance = new TextComponent(Text.translatable("loggedin.balance.fetching"), centerX, yPos);
         children.add(balance);
 
-        SimpleRequestQueue.getInstance().request("balance", Map.of("token",token),(p,body)->{
-            if(p.status() == Status.SUCCESS){
-                balance.setText(Text.translatable("loggedin.balance",(int)(body.get("balance").getAsDouble())));
-            }
-            else if(p.status() == Status.ERROR){
-                balance.setText(Text.translatable("loggedin.balance",(body.get("error").getAsString())));
+        SimpleRequestQueue.getInstance().request("balance", Map.of("token", token), (p, body) -> {
+            if (p.status() == Status.SUCCESS) {
+                balance.setText(Text.translatable("loggedin.balance", (int) (body.get("balance").getAsDouble())));
+            } else if (p.status() == Status.ERROR) {
+                balance.setText(Text.translatable("loggedin.balance", (body.get("error").getAsString())));
             }
         });
 
@@ -101,7 +100,7 @@ public class LoggedInState extends GenericState {
     }
 
     private void history() {
-
+        parent.setState(new HistoryState(parent, token));
     }
 
     private void logout() {

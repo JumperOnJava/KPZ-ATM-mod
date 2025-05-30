@@ -1,12 +1,13 @@
 package io.github.jumperonjava.kpz_atm_mod.server.bank;
 
-import io.github.jumperonjava.kpz_atm_mod.server.endpoints.EndpointException;
 import io.github.jumperonjava.kpz_atm_mod.server.Status;
+import io.github.jumperonjava.kpz_atm_mod.server.endpoints.EndpointException;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Map;
 
 public class DatabaseBankService implements BankService {
     private final DatabaseUtil databaseUtil;
+
     public DatabaseBankService(DatabaseUtil db) {
         this.databaseUtil = db;
     }
@@ -120,6 +122,30 @@ public class DatabaseBankService implements BankService {
         return ref.userId;
     }
 
+    private String getUsernameById(long id) {
+        if (id == 0) {
+            return "";
+        }
+
+        var ref = new Object() {
+            String username = "";
+        };
+
+        String query = "SELECT username FROM users WHERE id = ?";
+
+        databaseUtil.query(query, id).accept(resultSet -> {
+            try {
+                if (resultSet.next()) {
+                    ref.username = resultSet.getString("username");
+                }
+            } catch (SQLException e) {
+                throw new EndpointException(Status.ERROR_UNEXPECTED, "db_error");
+            }
+        });
+
+        return ref.username;
+    }
+
     public long getUserIdByToken(String token) {
         return getUserIdByField("token", token, "invalid_token");
     }
@@ -175,26 +201,24 @@ public class DatabaseBankService implements BankService {
         return Base64.getUrlEncoder().withoutPadding().encodeToString(tokenBytes);
     }
 
-    public Object getOperations(long user) {
-        List<Object> operations = new ArrayList<>();
-        databaseUtil.query("SELECT `from`, `to`, amount, type, date FROM operations WHERE from = ? OR to = ?", user, user).accept(resultSet -> {
-            while (true){
-                try {
-                    if (resultSet.next()){
-                        operations.add(Map.of(
-                                "from", resultSet.getLong("from"),
-                                "to", resultSet.getLong("to"),
-                                "amount", resultSet.getDouble("amount"),
-                                "withdraw", resultSet.getString("type"),
-                                "date", resultSet.getDate("date")
-                        ));
-                    }
-                } catch (SQLException e) {
-                    throw new EndpointException(Status.ERROR_UNEXPECTED, "db_error");
+    public Object[] getOperations(long user) {
+        List<Map<String,Object>> operations = new ArrayList<>();
+        databaseUtil.query("SELECT `from`, `to`, amount, type, date FROM operations WHERE `from` = ? OR `to` = ?", user, user).accept(resultSet -> {
+            try {
+                while (resultSet.next()) {
+                    operations.add(Map.of(
+                            "from"  , getUsernameById(resultSet.getLong("from")),
+                            "to"    , getUsernameById(resultSet.getLong("to")),
+                            "amount", resultSet.getDouble("amount"),
+                            "type"  , resultSet.getString("type"),
+                            "date"  , resultSet.getString("date")
+                    ));
                 }
+            } catch (SQLException e) {
+                throw new EndpointException(Status.ERROR_UNEXPECTED, "db_error");
             }
         });
 
-        return operations;
+        return operations.toArray();
     }
 }

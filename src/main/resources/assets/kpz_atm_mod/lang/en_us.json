@@ -41,5 +41,12 @@
   "transfer.error.invalid_amount": "Error: Invalid amount",
   "transfer.error.receiver_not_found": "Error: Invalid amount",
   "transfer.error.cannot_send_self": "Cannot send yourself",
-  "transfer.error.not_enough_balance":  "Error: Balance too low to transfer this amount"
+  "transfer.error.not_enough_balance":  "Error: Balance too low to transfer this amount",
+
+  "history.title": "Transaction history",
+  "history.cancel": "Back to home",
+  "history.withdraw": "Withdrawal of %3$d diamonds",
+  "history.deposit": "Deposit of %3$d diamonds",
+  "history.transfer": "Transfer of %3$d diamonds from %1$s to %2$s"
+
 }

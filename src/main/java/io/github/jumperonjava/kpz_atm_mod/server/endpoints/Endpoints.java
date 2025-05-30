@@ -12,7 +12,7 @@ import net.minecraft.item.Items;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Endpoints implements EndpointList {
+public class Endpoints implements EndpointProvider {
 
     private final DatabaseBankService bankService;
     private final ServerThreadExecutor serverThreadExecutor;
@@ -84,7 +84,7 @@ public class Endpoints implements EndpointList {
             AtmMod.LOGGER.info("Free slot amount: {} out of {} needed", freeSlots.value, amount);
 
             if(freeSlots.value >= amount){
-                context.player().getInventory().insertStack(new ItemStack(Items.DIAMOND, freeSlots.value));
+                context.player().getInventory().insertStack(new ItemStack(Items.DIAMOND, amount));
             }
             else {
                 throw new EndpointException(Status.ERROR, "not_enough_inventory_space");
@@ -125,15 +125,13 @@ public class Endpoints implements EndpointList {
     private Object getHistory(ServerPlayNetworking.Context context, JsonObject body) {
         String token = getRequiredString(body, "token");
         long user = bankService.getUserIdByToken(token);
-        return bankService.getOperations(user);
+        return Map.of("history", bankService.getOperations(user));
     }
 
     private Object balance(ServerPlayNetworking.Context context, JsonObject body) {
         String token = getRequiredString(body, "token");
         return Map.of("balance", bankService.getBalance(bankService.getUserIdByToken(token)));
     }
-
-
 
     private static String getRequiredString(JsonObject json, String key) {
         if (!json.has(key) || json.get(key).isJsonNull()) {
@@ -159,6 +157,7 @@ public class Endpoints implements EndpointList {
         endpoints.put("withdraw", this::withdraw);
         endpoints.put("transfer", this::transfer);
         endpoints.put("balance", this::balance);
+        endpoints.put("history", this::getHistory);
 
         return endpoints;
     }
