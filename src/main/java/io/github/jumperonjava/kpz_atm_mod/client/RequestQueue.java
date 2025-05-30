@@ -6,6 +6,6 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 
 import java.util.function.BiConsumer;
 
-public interface RequestQueue extends ClientPlayNetworking.PlayPayloadHandler<ResponsePacket>  {
+public interface RequestQueue  {
     void request(String endpoint, Object data, BiConsumer<ResponsePacket, JsonObject> packet);
 }

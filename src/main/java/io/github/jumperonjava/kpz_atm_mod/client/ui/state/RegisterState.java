@@ -106,7 +106,7 @@ public class RegisterState extends GenericState {
             warningText.setText(Text.translatable("register.password_mismatch"));
             return;
         }
-        SimpleRequestQueue.getInstance().request("register", Map.of(
+        parent.requestQueue.request("register", Map.of(
             "username", RegisterState.this.username,
             "password", RegisterState.this.password
         ),(responsePacket, body)->{

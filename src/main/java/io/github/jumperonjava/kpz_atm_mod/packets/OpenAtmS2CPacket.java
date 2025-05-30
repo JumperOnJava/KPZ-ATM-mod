@@ -1,6 +1,7 @@
 package io.github.jumperonjava.kpz_atm_mod.packets;
 
 import io.github.jumperonjava.kpz_atm_mod.AtmMod;
+import io.github.jumperonjava.kpz_atm_mod.client.RequestQueue;
 import io.github.jumperonjava.kpz_atm_mod.client.ui.AtmScreen;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
@@ -27,9 +28,9 @@ public record OpenAtmS2CPacket() implements CustomPayload {
                 });
         }
 
-        public static void registerClientReceive() {
+        public static void registerClientReceive(RequestQueue queue) {
                 ClientPlayNetworking.registerGlobalReceiver(OpenAtmS2CPacket.ID, (payload, context) -> {
-                        MinecraftClient.getInstance().setScreen(new AtmScreen());
+                        MinecraftClient.getInstance().setScreen(new AtmScreen(queue));
                 });
         }
 

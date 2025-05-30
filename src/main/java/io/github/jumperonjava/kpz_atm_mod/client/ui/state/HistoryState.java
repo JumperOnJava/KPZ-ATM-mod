@@ -42,7 +42,7 @@ public class HistoryState extends TokenState  {
 
         var list = new HistoryScrollList();
         children.add(list);
-        SimpleRequestQueue.getInstance().request(
+        parent.requestQueue.request(
                 "history", Map.of("token", token), (response, body) -> {
                     list.children().clear();
                     if (response.status() == Status.SUCCESS) {

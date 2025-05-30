@@ -8,7 +8,9 @@ public class AtmModClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        OpenAtmS2CPacket.registerClientReceive();
-        ResponsePacket.registerClientReceive();
+        var queue = SimpleRequestQueue.getInstance();
+
+        OpenAtmS2CPacket.registerClientReceive(queue);
+        ResponsePacket.registerClientReceive(queue);
     }
 }

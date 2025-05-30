@@ -9,37 +9,39 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import java.util.HashMap;
 import java.util.function.BiConsumer;
 
-public class SimpleRequestQueue implements RequestQueue{
+public class SimpleRequestQueue implements RequestQueue, ClientPlayNetworking.PlayPayloadHandler<ResponsePacket> {
     private static SimpleRequestQueue instance;
+
     public static SimpleRequestQueue getInstance() {
-        if(instance == null){
+        if (instance == null) {
             instance = new SimpleRequestQueue();
         }
         return instance;
     }
 
-    HashMap<Integer, BiConsumer<ResponsePacket,JsonObject>> queue;
+    HashMap<Integer, BiConsumer<ResponsePacket, JsonObject>> queue;
+
     private SimpleRequestQueue() {
         queue = new HashMap<>();
     }
 
 
     int packetNumber = 0;
-    public void request(String endpoint, Object data, BiConsumer<ResponsePacket,JsonObject> packet) {
-        ClientPlayNetworking.send(new RequestPacket(packetNumber,endpoint, AtmMod.GSON.toJson(data)));
+
+    public void request(String endpoint, Object data, BiConsumer<ResponsePacket, JsonObject> packet) {
+        ClientPlayNetworking.send(new RequestPacket(packetNumber, endpoint, AtmMod.GSON.toJson(data)));
         queue.put(packetNumber++, packet);
     }
 
     @Override
     public void receive(ResponsePacket packet, ClientPlayNetworking.Context context) {
         try {
-            queue.getOrDefault(packet.id(),(p,jsonObject)->{
-            AtmMod.LOGGER.warn("Received wrong response id {} with data {}",packet.id(),packet.data());
-        }).accept(packet, AtmMod.GSON.fromJson(packet.data(), JsonObject.class));
-        queue.remove(packet.id());
-        }
-        catch (Exception e){
-            AtmMod.LOGGER.warn("Received invalid response {} with data {}",packet.id(),packet.data());
+            queue.getOrDefault(packet.id(), (p, jsonObject) -> {
+                AtmMod.LOGGER.warn("Received wrong response id {} with data {}", packet.id(), packet.data());
+            }).accept(packet, AtmMod.GSON.fromJson(packet.data(), JsonObject.class));
+            queue.remove(packet.id());
+        } catch (Exception e) {
+            AtmMod.LOGGER.warn("Received invalid response {} with data {}", packet.id(), packet.data());
 
         }
     }

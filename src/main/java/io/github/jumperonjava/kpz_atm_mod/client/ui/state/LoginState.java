@@ -70,13 +70,12 @@ public class LoginState extends GenericState {
         parent.setState(new RegisterState(parent));
     }
 
-    SimpleRequestQueue queue = SimpleRequestQueue.getInstance();
 
     private void login() {
         parent.setState(new StubState(parent, "LoadingStub"));
 
         //noinspection FieldMayBeFinal
-        queue.request("login", Map.of(
+        parent.requestQueue.request("login", Map.of(
                         "username", this.username,
                         "password", this.password
                 ),

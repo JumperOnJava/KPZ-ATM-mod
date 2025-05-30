@@ -38,8 +38,8 @@ public record ResponsePacket(int id, Status status, String data) implements Cust
                 });
         }
 
-        public static void registerClientReceive() {
-            ClientPlayNetworking.registerGlobalReceiver(ResponsePacket.ID, SimpleRequestQueue.getInstance());
+        public static void registerClientReceive(SimpleRequestQueue queue) {
+            ClientPlayNetworking.registerGlobalReceiver(ResponsePacket.ID, queue);
         }
 
 }

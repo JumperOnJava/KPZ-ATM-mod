@@ -1,5 +1,7 @@
 package io.github.jumperonjava.kpz_atm_mod.client.ui;
 
+import io.github.jumperonjava.kpz_atm_mod.client.RequestQueue;
+import io.github.jumperonjava.kpz_atm_mod.client.SimpleRequestQueue;
 import io.github.jumperonjava.kpz_atm_mod.client.ui.state.AtmScreenState;
 import io.github.jumperonjava.kpz_atm_mod.client.ui.state.LoginState;
 import net.minecraft.client.MinecraftClient;
@@ -13,10 +15,13 @@ public class AtmScreen extends Screen {
 
     public int viewWidth = 200;
     public int viewHeight = 250;
+    public RequestQueue requestQueue;
     AtmScreenState state;
 
-    public AtmScreen() {
+    public AtmScreen(RequestQueue queue) {
         super(Text.empty());
+
+        this.requestQueue = queue;
         state = new LoginState(this);
     }
 

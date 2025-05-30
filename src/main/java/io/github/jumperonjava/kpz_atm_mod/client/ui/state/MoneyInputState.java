@@ -82,7 +82,7 @@ public class MoneyInputState extends TokenState  {
     }
 
     protected void confirm() {
-        SimpleRequestQueue.getInstance().request(endpoint, Map.of(
+        parent.requestQueue.request(endpoint, Map.of(
                 "token", MoneyInputState.this.token,
                 "amount", MoneyInputState.this.value
         ), (packet, data) -> {

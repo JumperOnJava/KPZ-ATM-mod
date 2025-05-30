@@ -28,7 +28,7 @@ public class LoggedInState extends TokenState {
         var balance = new TextComponent(Text.translatable("loggedin.balance.fetching"), centerX, yPos);
         children.add(balance);
 
-        SimpleRequestQueue.getInstance().request("balance", Map.of("token", token), (p, body) -> {
+        parent.requestQueue.request("balance", Map.of("token", token), (p, body) -> {
             if (p.status() == Status.SUCCESS) {
                 balance.setText(Text.translatable("loggedin.balance", (int) (body.get("balance").getAsDouble())));
             } else if (p.status() == Status.ERROR) {

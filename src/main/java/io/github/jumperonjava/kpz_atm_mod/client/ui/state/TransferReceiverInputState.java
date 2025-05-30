@@ -34,7 +34,7 @@ public class TransferReceiverInputState extends MoneyInputState {
 
     @Override
     protected void confirm() {
-        SimpleRequestQueue.getInstance().request("transfer", Map.of("token", token, "amount", value, "receiver", receiverUsername), ((response, body) ->
+        parent.requestQueue.request("transfer", Map.of("token", token, "amount", value, "receiver", receiverUsername), ((response, body) ->
         {
             if (response.status() == Status.SUCCESS) {
                 parent.setState(new LoggedInState(parent, token));
